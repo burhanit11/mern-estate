@@ -42,9 +42,7 @@ export const createListing = async (req, res, next) => {
       userRef,
       imageUrls,
     });
-
     await newListing.save();
-
     res.status(201).json({
       success: true,
       data: "Listing Create Successfully.",
@@ -55,12 +53,12 @@ export const createListing = async (req, res, next) => {
   }
 };
 
+// update Listing
 export const updateListing = async (req, res, next) => {
   try {
     const listing = await Listing.findById(req.params.id);
     if (!listing) return next(errorHandler(404, "Listing not found!"));
 
-    // Only owner can update
     if (listing.userRef.toString() !== req.user._id) {
       return next(errorHandler(403, "You can only update your own listings!"));
     }
@@ -72,7 +70,6 @@ export const updateListing = async (req, res, next) => {
       })
     );
 
-    // Update listing with body + new images
     const updatedListing = await Listing.findByIdAndUpdate(
       req.params.id,
       { ...req.body, imageUrls },

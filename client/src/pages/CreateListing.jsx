@@ -67,9 +67,7 @@ export default function CreateListing() {
       });
 
       files.forEach((file) => formPayload.append("images", file));
-
       formPayload.append("userRef", currentUser._id);
-
       const res = await fetch("/api/listing/create-listing", {
         method: "POST",
         body: formPayload,

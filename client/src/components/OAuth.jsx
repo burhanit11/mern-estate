@@ -13,10 +13,10 @@ const OAuth = () => {
       const auth = getAuth(app);
       const provider = new GoogleAuthProvider();
 
-      // 🔹 Popup login
+      //  Popup login
       const result = await signInWithPopup(auth, provider);
 
-      // 🔹 Send to backend
+      //  Send to backend
       const res = await fetch("http://localhost:5000/api/user/google", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

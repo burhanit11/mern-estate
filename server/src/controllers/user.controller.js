@@ -29,13 +29,11 @@ const signup = async (req, res, next) => {
       photo: photo?.url || "",
     });
     await newUser.save();
-
     const token = newUser.generateToken();
-
     res
       .cookie("accessToken", token, {
-        httpOnly: true, // JS on frontend cannot access it (safe)
-        secure: false, // true if HTTPS
+        httpOnly: true,
+        secure: false,
         sameSite: "Lax",
       })
       .status(201)
@@ -185,7 +183,6 @@ const updatedUser = async (req, res, next) => {
 
 // get User
 const getUser = async (req, res, next) => {
-  console.log(req.params.id, "req.params.id");
   try {
     const user = await User.findById(req.params.id);
 
